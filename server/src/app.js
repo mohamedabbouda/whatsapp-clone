@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import { mkdirSync } from "fs";
 
-import AuthRoutes from "../routes/AuthRoutes.js";
+import AuthRoutes from "./modules/auth/auth.routes.js";
 import MessageRoutes from "../routes/MessageRoutes.js";
 import { env } from "./config/env.js";
 import { notFoundHandler } from "./middlewares/notFoundHandler.js";
