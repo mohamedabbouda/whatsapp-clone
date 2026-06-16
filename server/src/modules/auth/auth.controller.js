@@ -1,5 +1,3 @@
-import { renameSync } from "fs";
-
 import {
   createUserProfile,
   findUserByEmail,
@@ -9,6 +7,7 @@ import {
 } from "./auth.service.js";
 import { asyncHandler } from "../../utils/async-handler.js";
 import { ApiError } from "../../utils/api-error.js";
+import { moveUploadedFile } from "../../utils/file-storage.js";
 
 export const checkUser = asyncHandler(async (request, response) => {
   const { email } = request.body;
@@ -78,10 +77,7 @@ export const uploadProfileImage = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Profile image is required.");
   }
 
-  const date = Date.now();
-  const fileName = `uploads/profile-pictures/${date}${req.file.originalname}`;
-
-  renameSync(req.file.path, fileName);
+  const fileName = moveUploadedFile(req.file, "uploads/profile-pictures");
 
   return res.status(201).json({
     image: fileName,

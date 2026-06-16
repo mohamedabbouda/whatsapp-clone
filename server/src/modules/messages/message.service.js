@@ -1,8 +1,7 @@
-import { renameSync } from "fs";
-
 import getPrismaClient from "../../services/prisma.service.js";
 import { transcribeAudioFile } from "../../services/transcription.service.js";
 import { ApiError } from "../../utils/api-error.js";
+import { moveUploadedFile } from "../../utils/file-storage.js";
 
 const getOnlineUserSocket = (userId) => {
   return global.onlineUsers?.get(userId.toString());
@@ -193,10 +192,7 @@ export const createAudioMessage = async ({ file, from, to }) => {
     throw new ApiError(400, "Audio is required.");
   }
 
-  const date = Date.now();
-  const fileName = `uploads/recordings/${date}${file.originalname}`;
-
-  renameSync(file.path, fileName);
+  const fileName = moveUploadedFile(file, "uploads/recordings");
 
   const prisma = getPrismaClient();
   const transcript = await transcribeAudioFile(fileName);
@@ -225,10 +221,7 @@ export const createImageMessage = async ({ file, from, to }) => {
     throw new ApiError(400, "Image is required.");
   }
 
-  const date = Date.now();
-  const fileName = `uploads/images/${date}${file.originalname}`;
-
-  renameSync(file.path, fileName);
+  const fileName = moveUploadedFile(file, "uploads/images");
 
   const prisma = getPrismaClient();
 

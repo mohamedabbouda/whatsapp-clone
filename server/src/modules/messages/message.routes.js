@@ -1,5 +1,4 @@
 import { Router } from "express";
-import multer from "multer";
 
 import {
   addAudioMessage,
@@ -10,14 +9,10 @@ import {
   getMessages,
   searchMessages,
 } from "./message.controller.js";
-
-const uploadAudio = multer({
-  dest: "uploads/recordings/",
-});
-
-const uploadImage = multer({
-  dest: "uploads/images/",
-});
+import {
+  uploadAudioFile,
+  uploadImageFile,
+} from "../../middlewares/upload.middleware.js";
 
 const router = Router();
 
@@ -27,7 +22,16 @@ router.get("/get-messages/:from/:to", getMessages);
 router.get("/get-initial-contacts/:from", getInitialContactsWithMessages);
 router.delete("/delete-message/:messageId", deleteMessage);
 
-router.post("/add-audio-message", uploadAudio.single("audio"), addAudioMessage);
-router.post("/add-image-message", uploadImage.single("image"), addImageMessage);
+router.post(
+  "/add-audio-message",
+  uploadAudioFile.single("audio"),
+  addAudioMessage
+);
+
+router.post(
+  "/add-image-message",
+  uploadImageFile.single("image"),
+  addImageMessage
+);
 
 export default router;

@@ -11,6 +11,7 @@ import { errorHandler } from "./middlewares/errorHandler.js";
 export const createApp = () => {
   const app = express();
 
+  mkdirSync("uploads/temp", { recursive: true });
   mkdirSync("uploads/recordings", { recursive: true });
   mkdirSync("uploads/images", { recursive: true });
   mkdirSync("uploads/profile-pictures", { recursive: true });
