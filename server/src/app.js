@@ -3,7 +3,7 @@ import cors from "cors";
 import { mkdirSync } from "fs";
 
 import AuthRoutes from "./modules/auth/auth.routes.js";
-import MessageRoutes from "../routes/MessageRoutes.js";
+import MessageRoutes from "./modules/messages/message.routes.js";
 import { env } from "./config/env.js";
 import { notFoundHandler } from "./middlewares/notFoundHandler.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
