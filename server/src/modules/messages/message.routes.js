@@ -13,6 +13,7 @@ import {
   uploadAudioFile,
   uploadImageFile,
 } from "../../middlewares/upload.middleware.js";
+import { uploadRateLimiter } from "../../middlewares/security.middleware.js";
 
 const router = Router();
 
@@ -24,12 +25,14 @@ router.delete("/delete-message/:messageId", deleteMessage);
 
 router.post(
   "/add-audio-message",
+  uploadRateLimiter,
   uploadAudioFile.single("audio"),
   addAudioMessage
 );
 
 router.post(
   "/add-image-message",
+  uploadRateLimiter,
   uploadImageFile.single("image"),
   addImageMessage
 );
