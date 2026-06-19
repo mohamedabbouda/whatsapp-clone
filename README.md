@@ -1,6 +1,6 @@
 # Chatlosss
 
-Chatlosss is a full-stack real-time chat application inspired by WhatsApp. It supports Google authentication, one-to-one messaging, image messages, voice messages, message search, voice/video calling, and a voice-note search feature powered by audio transcription.
+Chatlosss is a full-stack real-time chat application. It supports Google authentication, one-to-one messaging, image messages, voice messages, message search, voice/video calling, and a voice-note search feature powered by audio transcription.
 
 ## Features
 
